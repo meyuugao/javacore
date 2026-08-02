@@ -23,7 +23,6 @@ public class OperatorsDemo {
     private boolean wasCalled;
 
     public OperatorsDemo() {
-        wasCalled = false;
         precedenceResult = testPrecedence();
         shortCircuitResult = testShortCircuit(3); // Передаём такое i, чтобы первое условие не сработало
         bitwiseShiftResult = testBitwiseShift(-8);
@@ -77,10 +76,10 @@ public class OperatorsDemo {
         boolean shiftVsRel = 1 << 2 < 5;
         sb.append("[5] << > <: 1 << 2 < 5  = %b   ((1<<2)=4 < 5)".formatted(shiftVsRel)).append("\n");
 
-        boolean relVsEq = true;
+        boolean relVsEq = 1 < 2 == true;
         sb.append("[6] < > ==:  1 < 2 == true = %b".formatted(relVsEq)).append("\n");
 
-        int eqVsBitAnd = false ? 1 : 0;
+        boolean eqVsBitAnd = false & 2 == 0;
         sb.append("[7] == > & : false & 2 == 0  = %d   (читается как false & (2==0))".formatted(eqVsBitAnd)).append("\n");
 
         int bitAndVsXor = 5 & 3 ^ 1;
@@ -89,10 +88,10 @@ public class OperatorsDemo {
         int xorVsBitOr = 5 ^ 3 | 2;
         sb.append("[9] ^ > |: 5 ^ 3 | 2   = %d   ((5^3)=6, 6|2=6)".formatted(xorVsBitOr)).append("\n");
 
-        boolean bitOrVsLogicAnd = false;
+        boolean bitOrVsLogicAnd = false | true && false;
         sb.append("[10] | > &&: false | true && false = %b   (true&&false=false, потом |)".formatted(bitOrVsLogicAnd)).append("\n");
 
-        boolean andVsOr = true;
+        boolean andVsOr = true || false && false;
         sb.append("[11] && > ||:  true || false && false = %b".formatted(andVsOr)).append("\n");
 
         String orVsTernary = true ? "A" : "B";
@@ -117,10 +116,18 @@ public class OperatorsDemo {
      * Демонстрирует разницу между && (и) и & (побитовое И для boolean).
      */
     private String testShortCircuit(int i) {
+        wasCalled = false;
+        boolean r1 = i == 2 & checkAndLog(i);
+        boolean called1 = wasCalled;
+
+        wasCalled = false;
+        boolean r2 = i == 2 && checkAndLog(i);
+        boolean called2 = wasCalled;
+
         return "--- Короткое замыкание ---\n" +
-                "i = %d; условия: i == 2 &/&& checkAndLog(i)".formatted(i) + "\n" +
-                "Без короткого замыкания (побитовое И): result = %b; wasCalled = %b".formatted(i == 2 & checkAndLog(i), wasCalled) + "\n" +
-                "С коротким замыканием: result = %b; wasCalled = %b".formatted(i == 2 && checkAndLog(i), wasCalled);
+                "i = %d; условие: i == 2 &/&& checkAndLog(i)\n".formatted(i) +
+                "Без короткого замыкания (&):  result = %b; checkAndLog вызван = %b\n".formatted(r1, called1) +
+                "С коротким замыканием (&&):   result = %b; checkAndLog вызван = %b".formatted(r2, called2);
     }
 
     private boolean checkAndLog(int i) {
@@ -132,10 +139,18 @@ public class OperatorsDemo {
      * Демонстрирует разницу между >> и >>>.
      */
     private String testBitwiseShift(int i) {
+        String bin = Integer.toBinaryString(i);
+        String shifted = Integer.toBinaryString(i >> 2);
+        String unsigned = Integer.toBinaryString(i >>> 2);
         return "--- Побитовый сдвиг ---\n" +
-                "i = %d; операции: i >> 2; i >>> 2.".formatted(i) + "\n" +
-                "i >> 2: %s --> %s (заполняет свободные биты тем, что было в самом левом бите - знаковом)".formatted(Integer.toBinaryString(i & 0xFF), Integer.toBinaryString((i >> 2) & 0xFF)) + "\n" +
-                "i >>> 2: %s --> %s (заполняет свободные биты нулями)".formatted(Integer.toBinaryString(i & 0xFF), Integer.toBinaryString((i >>> 2) & 0xFF));
+                "i = %d; операции: i >> 2; i >>> 2.\n".formatted(i) +
+                "i       : %s\n".formatted(pad32(bin)) +
+                "i >> 2  : %s  (заполняет левыми битами — знак сохраняется)\n".formatted(pad32(shifted)) +
+                "i >>> 2 : %s  (заполняет нулями — знак теряется)".formatted(pad32(unsigned));
+    }
+
+    private static String pad32(String s) {
+        return String.format("%32s", s).replace(' ', '0');
     }
 
     /**
