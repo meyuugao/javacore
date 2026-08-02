@@ -1,5 +1,6 @@
 package me.yuugao.lesson01;
 
+import me.yuugao.lesson01.demo.OperatorsDemo;
 import me.yuugao.lesson01.demo.PassByValueDemo;
 import me.yuugao.lesson01.demo.TypesDemo;
 
@@ -10,5 +11,8 @@ public class Lesson01 {
 
         PassByValueDemo passByValueDemo = new PassByValueDemo();
         System.out.println(passByValueDemo);
+
+        OperatorsDemo operatorsDemo = new OperatorsDemo();
+        System.out.println(operatorsDemo);
     }
 }

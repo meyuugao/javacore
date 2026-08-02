@@ -4,8 +4,8 @@ package me.yuugao.lesson01.demo;
  * Класс {@code me.yuugao.lesson01.demo.PassByValueDemo} наглядно демонстрирует главное правило java:
  * передача параметров всегда происходит <b>по назначению (pass-by-value)</b>.
  * <p>
- *     Для примитивов копируется само значение, а для объектов - копия ссылки на объект в куче (heap).
- *     Внутри класса проведены 3 эксперимента:
+ * Для примитивов копируется само значение, а для объектов - копия ссылки на объект в куче (heap).
+ * Внутри класса проведены 3 эксперимента:
  *     <ol>
  *         <li>Попытка изменить примитив (ожидаемо провалится).</li>
  *         <li>Мутация (изменение состояние) объекта по переданной ссылке (ожидаемо сработает).</li>
@@ -21,6 +21,7 @@ public class PassByValueDemo {
     private final String firstResult;
     private final String secondResult;
     private final String thirdResult;
+
     public PassByValueDemo() {
         firstResult = first();
         secondResult = second();
@@ -30,11 +31,11 @@ public class PassByValueDemo {
     private String first() {
         int i = 0;
         StringBuilder sb = new StringBuilder();
-        sb.append("До метода: %s".formatted(i)).append("\n");
+        sb.append("До метода: %d".formatted(i)).append("\n");
 
         modifyPrimitive(i);
 
-        sb.append("После метода: %s".formatted(i));
+        sb.append("После метода: %d".formatted(i));
         return sb.toString();
     }
 
@@ -74,9 +75,9 @@ public class PassByValueDemo {
 
     /**
      * Возвращает красиво отформатированный отчёт о всех проведённых тестах.
-     * Переопределение метода {@link Object#toString()} позволяет нам просто вызвать System.out.println(types) для красивого вывода.
+     * Переопределение метода {@link Object#toString()} позволяет нам просто вызвать {@link System#out#println()} для красивого вывода.
      *
-     * @return форматированную строку с диапазонами типов данных.
+     * @return форматированную строку с демонстрацией Pass-By-Value.
      */
     @Override
     public String toString() {
