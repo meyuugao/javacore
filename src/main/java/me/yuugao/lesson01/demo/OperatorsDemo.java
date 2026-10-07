@@ -80,7 +80,7 @@ public class OperatorsDemo {
         sb.append("[6] < > ==:  1 < 2 == true = %b".formatted(relVsEq)).append("\n");
 
         boolean eqVsBitAnd = false & 2 == 0;
-        sb.append("[7] == > & : false & 2 == 0  = %d   (читается как false & (2==0))".formatted(eqVsBitAnd)).append("\n");
+        sb.append("[7] == > & : false & 2 == 0  = %b   (читается как false & (2==0))".formatted(eqVsBitAnd)).append("\n");
 
         int bitAndVsXor = 5 & 3 ^ 1;
         sb.append("[8] & > ^: 5 & 3 ^ 1   = %d   ((5&3)=1, 1^1=0)".formatted(bitAndVsXor)).append("\n");
