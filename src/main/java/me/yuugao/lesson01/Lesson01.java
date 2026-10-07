@@ -1,5 +1,6 @@
 package me.yuugao.lesson01;
 
+import me.yuugao.lesson01.demo.FloatMoneyDemo;
 import me.yuugao.lesson01.demo.OperatorsDemo;
 import me.yuugao.lesson01.demo.PassByValueDemo;
 import me.yuugao.lesson01.demo.TypesDemo;
@@ -18,5 +19,8 @@ public class Lesson01 {
 
         WideningNarrowingDemo wideningNarrowingDemo = new WideningNarrowingDemo();
         System.out.println(wideningNarrowingDemo);
+
+        FloatMoneyDemo floatMoneyDemo = new FloatMoneyDemo();
+        System.out.println(floatMoneyDemo);
     }
 }
